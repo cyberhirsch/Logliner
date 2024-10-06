@@ -13,7 +13,7 @@ fetch("plural_data.json") // Assuming the file is named "logline_data.json"
     .then(response => response.json())
     .then(data => {
         // Store data from each section in respective variables
-        protagonists = data.protagonist || [];
+        protagonists = data.protagonists || [];
         settings = data.settings || [];
         conflicts = data.conflicts || [];
         stakes = data.stakes || [];

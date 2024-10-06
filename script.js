@@ -3,21 +3,21 @@ const generateBtn = document.getElementById('generateBtn');
 const loglineText = document.getElementById('loglineText');
 
 // Variables to store data from JSON
-let maleProtagonistData = [];
-let femaleProtagonistData = [];
-let pluralProtagonistData = [];
+let categories = {};
+let conflicts = {};
+let stakes = {};
 
-// Fetch the JSON file from the same directory
+// Fetch the optimized JSON file from the same directory
 fetch("logline_data.json")
     .then(response => response.json())
     .then(data => {
-        // Store data from each category in respective variables
-        maleProtagonistData = data.maleProtagonist || [];
-        femaleProtagonistData = data.femaleProtagonist || [];
-        pluralProtagonistData = data.pluralProtagonist || [];
+        // Store data from each section in respective variables
+        categories = data.categories || {};
+        conflicts = data.conflicts || {};
+        stakes = data.stakes || {};
 
         // Enable the generate button if any data is successfully loaded
-        if (maleProtagonistData.length || femaleProtagonistData.length || pluralProtagonistData.length) {
+        if (Object.keys(categories).length && Object.keys(conflicts).length && Object.keys(stakes).length) {
             generateBtn.disabled = false;
             loglineText.innerText = "File loaded successfully! Click 'Generate Logline' to create a logline.";
         } else {
@@ -29,29 +29,22 @@ fetch("logline_data.json")
         console.error(error);
     });
 
-// Function to select a random logline based on gender/plurality
+// Function to generate a random logline
 function generateLogline() {
-    // Randomly select from one of the three datasets based on a random choice
-    let protagonistType = Math.random();
-    let selectedData = [];
+    // Randomly select one of the protagonist categories
+    const protagonistTypes = Object.keys(categories);
+    const randomType = protagonistTypes[Math.floor(Math.random() * protagonistTypes.length)];
 
-    if (protagonistType < 0.33 && maleProtagonistData.length) {
-        selectedData = maleProtagonistData;
-    } else if (protagonistType < 0.66 && femaleProtagonistData.length) {
-        selectedData = femaleProtagonistData;
-    } else if (pluralProtagonistData.length) {
-        selectedData = pluralProtagonistData;
-    } else {
-        selectedData = maleProtagonistData.length ? maleProtagonistData : femaleProtagonistData.length ? femaleProtagonistData : pluralProtagonistData;
-    }
+    if (!randomType || !categories[randomType].length || !conflicts[randomType].length || !stakes[randomType].length) return;
 
-    if (!selectedData.length) return;
+    // Select a random character, conflict, and stakes based on the chosen protagonist type
+    const character = categories[randomType][Math.floor(Math.random() * categories[randomType].length)];
+    const conflict = conflicts[randomType][Math.floor(Math.random() * conflicts[randomType].length)];
+    const stake = stakes[randomType][Math.floor(Math.random() * stakes[randomType].length)];
 
-    // Select a random logline from the chosen dataset
-    const index = Math.floor(Math.random() * selectedData.length);
-    const logline = selectedData[index];
-
-    return `${logline.character} ${logline.setting} ${logline.conflict} ${logline.stakes}.`;
+    // Construct the logline
+    const logline = `${character} ${conflict} ${stake}.`;
+    return logline;
 }
 
 // Event listener for button click to generate and display the logline

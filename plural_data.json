@@ -1,32 +1,49 @@
 {
-  "protagonists": [
-    "Two brave warriors",
-    "A group of adventurers",
-    "A team of scientists",
-    "A band of rebels"
-  ],
-  "settings": [
-    "in a war-torn kingdom",
-    "deep in the jungle",
-    "on a remote space station",
-    "in an abandoned underground city",
-    "in the post-apocalyptic wastelands",
-    "in a mysterious forest"
-  ],
-  "conflicts": [
-    "fight against their own kind",
-    "faces a deadly trap",
-    "struggles to maintain unity",
-    "attempts to overthrow an oppressive regime",
-    "uncovers a hidden threat",
-    "discovers a dangerous secret"
-  ],
-  "stakes": [
-    "to protect their honor",
-    "to uncover a hidden treasure",
-    "to save their loved ones",
-    "to preserve their own survival",
-    "to bring peace to their homeland",
-    "to prevent total destruction"
-  ]
-}
+    "protagonists": [
+        "Two brave warriors",
+        "A group of adventurers",
+        "A team of scientists",
+        "A band of rebels",
+        "A pack of renegades",
+        "A squad of elite soldiers",
+        "A crew of space explorers",
+        "A network of underground hackers",
+        "A tribe of fierce nomads",
+        "A council of wise elders"
+    ],
+    "settings": [
+        "in a war-torn kingdom",
+        "deep in the jungle",
+        "on a remote space station",
+        "in an abandoned underground city",
+        "in the post-apocalyptic wastelands",
+        "in a mysterious forest",
+        "in a high-tech research facility",
+        "in a dystopian megacity",
+        "on a deserted island",
+        "in an uncharted alien world"
+    ],
+    "conflicts": [
+        "fight against their own kind",
+        "face a deadly trap",
+        "struggle to maintain unity",
+        "attempt to overthrow an oppressive regime",
+        "uncover a hidden threat to their survival",
+        "discover a dangerous secret about their past",
+        "protect their leader from an internal coup",
+        "clash over their moral differences",
+        "sabotage an enemy's stronghold",
+        "fend off a hostile takeover"
+    ],
+    "stakes": [
+        "to protect their honor",
+        "to uncover a hidden treasure",
+        "to save their loved ones",
+        "to preserve their own survival",
+        "to bring peace to their homeland",
+        "to prevent total destruction",
+        "to maintain their secrecy",
+        "to secure their future",
+        "to prevent a catastrophic war",
+        "to defend their territory"
+    ]

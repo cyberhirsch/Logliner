@@ -1,52 +1,84 @@
-// Define logline elements
-const characters = [
-    "A reclusive detective", 
-    "A fearless astronaut", 
-    "An ambitious journalist", 
-    "A cynical private eye", 
-    "A grieving mother",
-    "A former soldier"
-];
+// Elements from the HTML
+const generateBtn = document.getElementById('generateBtn');
+const loglineText = document.getElementById('loglineText');
 
-const settings = [
-    "in a dystopian future", 
-    "on a distant planet", 
-    "in a small coastal town", 
-    "in the depths of the Amazon rainforest", 
-    "during a war-torn era", 
-    "in a city where everyone can read minds"
-];
+// Variables to store data from different sheets
+let maleProtagonistData = [];
+let femaleProtagonistData = [];
+let pluralProtagonistData = [];
 
-const conflicts = [
-    "must uncover the truth behind a series of murders", 
-    "struggles to prevent a deadly outbreak", 
-    "is determined to expose a powerful criminal organization", 
-    "must track down a missing child who holds a dangerous secret", 
-    "fights to protect an ancient artifact from falling into the wrong hands", 
-    "unravels a conspiracy that threatens to rewrite history"
-];
+// Load the Excel file from the local directory using fetch
+fetch("Parts.xlsx")
+    .then(response => response.arrayBuffer())
+    .then(data => {
+        // Read the Excel file using XLSX
+        const workbook = XLSX.read(data, { type: 'array' });
 
-const stakes = [
-    "before it's too late", 
-    "to save their loved ones", 
-    "while risking their own sanity", 
-    "while battling their own inner demons", 
-    "or risk losing everything they hold dear", 
-    "to prevent the collapse of society"
-];
+        // Read sheets based on their names
+        if (workbook.Sheets['MaleProtagonist']) {
+            maleProtagonistData = parseSheet(workbook.Sheets['MaleProtagonist']);
+        }
+        if (workbook.Sheets['FemaleProtagonist']) {
+            femaleProtagonistData = parseSheet(workbook.Sheets['FemaleProtagonist']);
+        }
+        if (workbook.Sheets['PluralProtagonist']) {
+            pluralProtagonistData = parseSheet(workbook.Sheets['PluralProtagonist']);
+        }
 
-// Function to generate a random logline
-function generateLogline() {
-    const character = characters[Math.floor(Math.random() * characters.length)];
-    const setting = settings[Math.floor(Math.random() * settings.length)];
-    const conflict = conflicts[Math.floor(Math.random() * conflicts.length)];
-    const stake = stakes[Math.floor(Math.random() * stakes.length)];
+        // Enable the generate button if any data is successfully loaded
+        if (maleProtagonistData.length || femaleProtagonistData.length || pluralProtagonistData.length) {
+            generateBtn.disabled = false;
+            loglineText.innerText = "File loaded successfully! Click 'Generate Logline' to create a logline.";
+        } else {
+            loglineText.innerText = "Error: The Excel file does not have the expected structure.";
+        }
+    })
+    .catch(error => {
+        loglineText.innerText = "Error loading the Excel file. Make sure the file is in the correct location.";
+        console.error(error);
+    });
 
-    return `${character} ${setting} ${conflict} ${stake}.`;
+// Function to parse each sheet and extract relevant columns
+function parseSheet(sheet) {
+    // Convert sheet to JSON format
+    const rows = XLSX.utils.sheet_to_json(sheet, { header: 1 });
+
+    // Extract data and return an array of objects for each logline component
+    return rows.slice(1).map(row => ({
+        character: row[0],
+        setting: row[1],
+        conflict: row[2],
+        stakes: row[3]
+    })).filter(row => row.character && row.setting && row.conflict && row.stakes);
 }
 
-// Event listener for button click
-document.getElementById('generateBtn').addEventListener('click', () => {
+// Function to select a random logline based on gender/plurality
+function generateLogline() {
+    // Randomly select from one of the three datasets based on a random choice
+    let protagonistType = Math.random();
+    let selectedData = [];
+
+    if (protagonistType < 0.33 && maleProtagonistData.length) {
+        selectedData = maleProtagonistData;
+    } else if (protagonistType < 0.66 && femaleProtagonistData.length) {
+        selectedData = femaleProtagonistData;
+    } else if (pluralProtagonistData.length) {
+        selectedData = pluralProtagonistData;
+    } else {
+        selectedData = maleProtagonistData.length ? maleProtagonistData : femaleProtagonistData.length ? femaleProtagonistData : pluralProtagonistData;
+    }
+
+    if (!selectedData.length) return;
+
+    // Select a random logline from the chosen dataset
+    const index = Math.floor(Math.random() * selectedData.length);
+    const logline = selectedData[index];
+
+    return `${logline.character} ${logline.setting} ${logline.conflict} ${logline.stakes}.`;
+}
+
+// Event listener for button click to generate and display the logline
+generateBtn.addEventListener('click', () => {
     const logline = generateLogline();
-    document.getElementById('loglineText').innerText = logline;
+    loglineText.innerText = logline;
 });

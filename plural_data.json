@@ -1,0 +1,32 @@
+{
+  "protagonist": [
+    "Two brave warriors",
+    "A group of adventurers",
+    "A team of scientists",
+    "A band of rebels"
+  ],
+  "settings": [
+    "in a war-torn kingdom",
+    "deep in the jungle",
+    "on a remote space station",
+    "in an abandoned underground city",
+    "in the post-apocalyptic wastelands",
+    "in a mysterious forest"
+  ],
+  "conflicts": [
+    "fight against their own kind",
+    "faces a deadly trap",
+    "struggles to maintain unity",
+    "attempts to overthrow an oppressive regime",
+    "uncovers a hidden threat",
+    "discovers a dangerous secret"
+  ],
+  "stakes": [
+    "to protect their honor",
+    "to uncover a hidden treasure",
+    "to save their loved ones",
+    "to preserve their own survival",
+    "to bring peace to their homeland",
+    "to prevent total destruction"
+  ]
+}

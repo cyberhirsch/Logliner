@@ -1,0 +1,44 @@
+{
+  "maleProtagonist": [
+    {
+      "character": "A reclusive detective",
+      "setting": "in a dystopian future",
+      "conflict": "must uncover the truth behind a murder",
+      "stakes": "before he is caught"
+    },
+    {
+      "character": "An ambitious journalist",
+      "setting": "in a small coastal town",
+      "conflict": "is determined to expose a conspiracy",
+      "stakes": "despite risking his own safety"
+    }
+  ],
+  "femaleProtagonist": [
+    {
+      "character": "A grieving mother",
+      "setting": "during a war-torn era",
+      "conflict": "struggles to keep her family alive",
+      "stakes": "to save her children"
+    },
+    {
+      "character": "A cynical private eye",
+      "setting": "in the city’s underbelly",
+      "conflict": "must track down a missing child",
+      "stakes": "or she will lose her reputation"
+    }
+  ],
+  "pluralProtagonist": [
+    {
+      "character": "Two brave warriors",
+      "setting": "in a war-torn kingdom",
+      "conflict": "fight against their own kind",
+      "stakes": "to protect their honor"
+    },
+    {
+      "character": "A group of adventurers",
+      "setting": "deep in the jungle",
+      "conflict": "faces a deadly trap",
+      "stakes": "to uncover a hidden treasure"
+    }
+  ]
+}

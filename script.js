@@ -12,7 +12,7 @@ let stakes = [];
 const jsonFiles = ["male_data.json", "female_data.json", "plural_data.json"];
 
 // Function to load a random JSON file
-function loadRandomJSON() {
+function loadRandomJSON(callback) {
     // Select a random file from the list
     const randomFile = jsonFiles[Math.floor(Math.random() * jsonFiles.length)];
     console.log(`Loading JSON file: ${randomFile}`);
@@ -29,7 +29,10 @@ function loadRandomJSON() {
             // Enable the generate button if all data arrays are populated
             if (protagonists.length && settings.length && conflicts.length && stakes.length) {
                 generateBtn.disabled = false;
-                loglineText.innerText = `File "${randomFile}" loaded successfully! Click 'Generate Logline' to create a logline.`;
+                loglineText.innerText = "Click the button to generate a random logline for your next story!";
+
+                // Call the callback function if provided (e.g., to generate a logline after loading)
+                if (callback) callback();
             } else {
                 loglineText.innerText = `Error: The JSON file "${randomFile}" does not have the expected structure or is missing data.`;
             }
@@ -58,11 +61,11 @@ function generateLogline() {
 // Event listener for button click to generate and display the logline
 generateBtn.addEventListener('click', () => {
     // Load a random JSON file and then generate a logline using the loaded data
-    loadRandomJSON();
-    setTimeout(() => {  // Adding a small delay to ensure the file is loaded before generating the logline
+    loadRandomJSON(() => {
+        // Callback function to generate a logline once the JSON is loaded
         const logline = generateLogline();
         loglineText.innerText = logline || "Error: Unable to generate logline. Please try again.";
-    }, 200);
+    });
 });
 
 // Initial load to enable the Generate button

@@ -8,22 +8,22 @@ let settings = [];
 let conflicts = [];
 let stakes = [];
 
-// Fetch the JSON file from the same directory
-fetch("plural_data.json") // Assuming the file is named "logline_data.json"
+// Fetch the JSON file named "plural_data.json" from the same directory
+fetch("plural_data.json")
     .then(response => response.json())
     .then(data => {
         // Store data from each section in respective variables
-        protagonists = data.protagonists || [];
+        protagonists = data.protagonists || []; // Use "protagonists" as defined in your JSON
         settings = data.settings || [];
         conflicts = data.conflicts || [];
         stakes = data.stakes || [];
 
-        // Enable the generate button if any data is successfully loaded
+        // Enable the generate button if all data arrays are populated
         if (protagonists.length && settings.length && conflicts.length && stakes.length) {
             generateBtn.disabled = false;
             loglineText.innerText = "File loaded successfully! Click 'Generate Logline' to create a logline.";
         } else {
-            loglineText.innerText = "Error: The JSON file does not have the expected structure.";
+            loglineText.innerText = "Error: The JSON file does not have the expected structure or is missing data.";
         }
     })
     .catch(error => {

@@ -3,21 +3,23 @@ const generateBtn = document.getElementById('generateBtn');
 const loglineText = document.getElementById('loglineText');
 
 // Variables to store data from JSON
-let categories = {};
-let conflicts = {};
-let stakes = {};
+let protagonists = [];
+let settings = [];
+let conflicts = [];
+let stakes = [];
 
-// Fetch the optimized JSON file from the same directory
-fetch("logline_data.json")
+// Fetch the JSON file from the same directory
+fetch("plural_data.json") // Assuming the file is named "logline_data.json"
     .then(response => response.json())
     .then(data => {
         // Store data from each section in respective variables
-        categories = data.categories || {};
-        conflicts = data.conflicts || {};
-        stakes = data.stakes || {};
+        protagonists = data.protagonist || [];
+        settings = data.settings || [];
+        conflicts = data.conflicts || [];
+        stakes = data.stakes || [];
 
         // Enable the generate button if any data is successfully loaded
-        if (Object.keys(categories).length && Object.keys(conflicts).length && Object.keys(stakes).length) {
+        if (protagonists.length && settings.length && conflicts.length && stakes.length) {
             generateBtn.disabled = false;
             loglineText.innerText = "File loaded successfully! Click 'Generate Logline' to create a logline.";
         } else {
@@ -31,20 +33,17 @@ fetch("logline_data.json")
 
 // Function to generate a random logline
 function generateLogline() {
-    // Randomly select one of the protagonist categories
-    const protagonistTypes = Object.keys(categories);
-    const randomType = protagonistTypes[Math.floor(Math.random() * protagonistTypes.length)];
+    // Ensure data is available before generating
+    if (!protagonists.length || !settings.length || !conflicts.length || !stakes.length) return;
 
-    if (!randomType || !categories[randomType].length || !conflicts[randomType].length || !stakes[randomType].length) return;
-
-    // Select a random character, conflict, and stakes based on the chosen protagonist type
-    const character = categories[randomType][Math.floor(Math.random() * categories[randomType].length)];
-    const conflict = conflicts[randomType][Math.floor(Math.random() * conflicts[randomType].length)];
-    const stake = stakes[randomType][Math.floor(Math.random() * stakes[randomType].length)];
+    // Select a random protagonist, setting, conflict, and stakes
+    const protagonist = protagonists[Math.floor(Math.random() * protagonists.length)];
+    const setting = settings[Math.floor(Math.random() * settings.length)];
+    const conflict = conflicts[Math.floor(Math.random() * conflicts.length)];
+    const stake = stakes[Math.floor(Math.random() * stakes.length)];
 
     // Construct the logline
-    const logline = `${character} ${conflict} ${stake}.`;
-    return logline;
+    return `${protagonist} ${setting} ${conflict} ${stake}.`;
 }
 
 // Event listener for button click to generate and display the logline

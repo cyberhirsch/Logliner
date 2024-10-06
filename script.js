@@ -9,7 +9,7 @@ let conflicts = [];
 let stakes = [];
 
 // List of JSON files to randomly select from
-const jsonFiles = ["male_data.json", "female_data.json", "plural_data.json"];
+const jsonFiles = ["plural_data.json", "female_data.json", "male_data.json"];
 
 // Function to load a random JSON file
 function loadRandomJSON(callback) {
